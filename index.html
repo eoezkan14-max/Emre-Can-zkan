@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Emre Can Özkan - MediaMarkt Osnabrück City</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <title>MediaMarkt Osnabrück City - Filial-Informationsportal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Montserrat', sans-serif; background-color: #f4f4f4; color: #2d3436; line-height: 1.6; }
@@ -28,12 +28,12 @@
     #login-overlay button:hover { background-color: #b00000; }
 
     /* Main Container */
-    #main-content { display: none; max-width: 800px; margin: 40px auto; padding: 20px; }
+    #main-content { display: none; max-width: 900px; margin: 30px auto; padding: 20px; }
 
     .card {
       background: #ffffff;
       border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
       overflow: hidden;
       border-top: 6px solid #df0000;
     }
@@ -41,43 +41,100 @@
     .header-banner {
       background: #df0000;
       color: #ffffff;
-      padding: 20px;
+      padding: 30px 20px;
       text-align: center;
     }
-
-    .header-banner h1 { font-size: 24px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
-    .header-banner p { font-size: 14px; opacity: 0.9; }
+    .header-banner h1 { font-size: 26px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+    .header-banner p { font-size: 15px; opacity: 0.95; margin-top: 8px; font-weight: 400; }
 
     .content-body { padding: 30px; }
 
+    /* Image Header */
     .image-container { text-align: center; margin-bottom: 30px; }
     .image-container img {
       width: 100%;
-      max-width: 600px;
+      max-width: 750px;
       border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
     }
 
-    .info-section {
+    /* Section Styles */
+    .section-title {
+      font-size: 20px;
+      color: #df0000;
+      font-weight: 700;
+      margin: 30px 0 15px 0;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #f1f2f6;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .intro-text {
       background: #fafafa;
-      border-left: 4px solid #df0000;
       padding: 20px;
-      border-radius: 4px;
+      border-radius: 8px;
+      border-left: 4px solid #df0000;
+      margin-bottom: 25px;
       font-size: 15px;
     }
 
-    .info-section p { margin-bottom: 8px; }
-    .info-section strong { color: #111; }
-    .info-section a { color: #df0000; text-decoration: none; font-weight: 600; }
-    .info-section a:hover { text-decoration: underline; }
-
-    .footer-legal {
-      margin-top: 20px;
-      padding-top: 15px;
-      border-top: 1px solid #e0e0e0;
-      font-size: 13px;
-      color: #666;
+    /* Grid Layouts */
+    .grid-two {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-bottom: 25px;
     }
+
+    .info-card {
+      background: #f9f9f9;
+      border: 1px solid #eef0f2;
+      border-radius: 8px;
+      padding: 20px;
+    }
+    .info-card h4 { color: #111; font-size: 16px; margin-bottom: 10px; font-weight: 700; }
+    .info-card p, .info-card ul { font-size: 14px; color: #444; }
+    .info-card ul { list-style: none; }
+    .info-card ul li { margin-bottom: 8px; position: relative; padding-left: 18px; }
+    .info-card ul li::before { content: "•"; color: #df0000; font-weight: bold; position: absolute; left: 0; }
+
+    /* Ansprechpartner Box */
+    .contact-highlight {
+      background: #fff0f0;
+      border: 1px solid #ffd6d6;
+      border-left: 5px solid #df0000;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 25px 0;
+    }
+    .contact-highlight h3 { color: #df0000; font-size: 18px; margin-bottom: 8px; }
+    .contact-highlight a { color: #df0000; text-decoration: none; font-weight: 600; }
+    .contact-highlight a:hover { text-decoration: underline; }
+
+    /* Online World Badge */
+    .online-section {
+      background: #1e272e;
+      color: #ffffff;
+      border-radius: 8px;
+      padding: 25px;
+      margin-top: 30px;
+    }
+    .online-section h3 { color: #ffffff; font-size: 18px; margin-bottom: 15px; border-bottom: 1px solid #34495e; padding-bottom: 10px; }
+    .online-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+    .online-box h4 { color: #df0000; margin-bottom: 8px; font-size: 15px; }
+    .online-box p { font-size: 13px; color: #dcdde1; line-height: 1.5; }
+
+    /* Footer Legal */
+    .footer-legal {
+      margin-top: 35px;
+      padding-top: 20px;
+      border-top: 1px solid #e0e0e0;
+      font-size: 12px;
+      color: #7f8c8d;
+    }
+    .footer-legal strong { color: #2c3e50; }
   </style>
 </head>
 <body>
@@ -94,7 +151,7 @@
     <div class="card">
       <div class="header-banner">
         <h1>MediaMarkt Osnabrück City</h1>
-        <p>Visitenkarte & Team-Profil</p>
+        <p>Dein Technikparadies im Herzen der Stadt</p>
       </div>
 
       <div class="content-body">
@@ -104,28 +161,102 @@
           <img src="file_00000000d1d481f4aecb125ee85fa7ca.png" alt="MediaMarkt Osnabrück City Team">
         </div>
 
-        <!-- Infotext / Signatur -->
-        <div class="info-section">
-          <p>Mit freundlichen Grüßen</p>
-          <p style="margin-top: 12px;"><strong>Emre Can Özkan</strong><br>
-          Kundenberater im Verkauf</p>
-          
-          <p style="margin-top: 12px;">
-            <strong>Tel.:</strong> +49 176 32192089<br>
-            <strong>Mail:</strong> <a href="mailto:oezkanemre@mediamarkt.de">oezkanemre@mediamarkt.de</a><br>
-            <strong>Web:</strong> <a href="https://www.mediamarkt.de" target="_blank">www.mediamarkt.de</a>
-          </p>
+        <!-- Intro -->
+        <div class="intro-text">
+          <p><strong>Willkommen im MediaMarkt Osnabrück City!</strong><br>
+          Egal ob neueste Smartphone-Trends, leistungsstarke Gaming-Setups, energieeffiziente Haushaltsgeräte oder erstklassiges Home-Entertainment – mitten im Zentrum von Osnabrück bieten wir dir eine riesige Auswahl an Markenprodukten führender Hersteller. Unser erfahrenes Fachpersonal steht dir jederzeit mit individueller Beratung und kompetentem Service zur Seite.</p>
+        </div>
 
-          <div class="footer-legal">
-            <p><strong>Media Markt TV-HiFi-Elektro GmbH Osnabrück-City</strong><br>
-            Kamp 50<br>
-            49074 Osnabrück</p>
-            
-            <p style="margin-top: 8px;">
-              <strong>Geschäftsführer:</strong> Matthias Komp<br>
-              Eingetragen im Handelsregister/Amtsgericht Osnabrück unter HRB 21409.
-            </p>
+        <!-- Sortimentsbereiche -->
+        <div class="section-title">🛍️ Unsere Sortimentsbereiche</div>
+        <div class="grid-two">
+          <div class="info-card">
+            <h4>Unterhaltung & Kommunikation</h4>
+            <ul>
+              <li><strong>TV & Home Entertainment:</strong> OLED-, QLED- & Smart-TVs, Soundbars, Heimkinosysteme.</li>
+              <li><strong>Computer, Gaming & Office:</strong> Laptops, Custom-PCs, Monitore, Konsolen (PlayStation, Xbox, Switch), Zubehör.</li>
+              <li><strong>Smartphone & Wearables:</strong> Top-Smartphones aller Marken, Smartwatches, In-Ear-Kopfhörer & Schutzfolien-Service.</li>
+              <li><strong>Foto & Audio:</strong> Kameras, Bluetooth-Speaker, Hi-Fi-Komponenten & Tontechnik.</li>
+            </ul>
           </div>
+          <div class="info-card">
+            <h4>Haushalt & Lifestyle</h4>
+            <ul>
+              <li><strong>Haushalt & Küche:</strong> Waschmaschinen, Trockner, Kühl-Kombinationen, Kaffeevollautomaten & Bodenpflege.</li>
+              <li><strong>Beauty & Gesundheit:</strong> Elektrische Zahnbürsten, Haartrockner, Rasierer & Pflegegeräte.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Services vor Ort -->
+        <div class="section-title">🛠️ Unsere Services vor Ort</div>
+        <div class="grid-two">
+          <div class="info-card">
+            <ul>
+              <li><strong>Click & Collect:</strong> Bequem auf mediamarkt.de bestellen und direkt bei uns im Markt abholen.</li>
+              <li><strong>Smartbar & Express-Reparatur:</strong> Display-/Akkuwechsel, Displayschutz-Service & PC-/Konsolen-Einrichtung.</li>
+              <li><strong>Liefer- & Montage-Service:</strong> Lieferung von Großgeräten nach Hause inklusive Anschluss & Altgeräte-Entsorgung.</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <ul>
+              <li><strong>Tarif- & Mobilfunkberatung:</strong> Unabhängige Beratung zu Mobilfunk-, Festnetz- und Internetverträgen.</li>
+              <li><strong>Finanzierung & PlusGarantie:</strong> Flexible Finanzierungsmodelle und Garantieerweiterungen für Neuanschaffungen.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Ansprechpartner Highlight -->
+        <div class="contact-highlight">
+          <h3>👤 Ihr Ansprechpartner im Markt</h3>
+          <p><strong>Emre Can Özkan</strong> — Kundenberater im Verkauf</p>
+          <p style="margin-top: 8px; font-size: 14px;">
+            <strong>Telefon (Markt):</strong> +49 541 9114-100 | <strong>Mobil:</strong> +49 176 32192089<br>
+            <strong>E-Mail:</strong> <a href="mailto:oezkanemre@mediamarkt.de">oezkanemre@mediamarkt.de</a><br>
+            <strong>Geschäftsführung:</strong> <a href="mailto:komp@mediamarktsaturn.de">komp@mediamarktsaturn.de</a>
+          </p>
+        </div>
+
+        <!-- Standort & Anfahrt -->
+        <div class="section-title">📍 Standordinformationen & Anfahrt</div>
+        <div class="grid-two">
+          <div class="info-card">
+            <h4>MediaMarkt Osnabrück City</h4>
+            <p>Kamp 50<br>49074 Osnabrück</p>
+            <p style="margin-top: 10px;"><strong>Öffnungszeiten:</strong><br>
+            Montag – Samstag: 10:00 – 19:00 Uhr<br>
+            Sonn- und Feiertage: Geschlossen</p>
+          </div>
+          <div class="info-card">
+            <h4>Anfahrt & Erreichbarkeit</h4>
+            <p><strong>ÖPNV:</strong> Ideal erreichbar über die zentralen Bus-Haltestellen <em>Kamp/Promenade</em> oder <em>Neumarkt</em> (nur wenige Gehminuten).</p>
+            <p style="margin-top: 8px;"><strong>Auto:</strong> Zahlreiche Parkmöglichkeiten in den umliegenden Parkhäusern (z. B. Parkhaus Kamp-Promenade).</p>
+          </div>
+        </div>
+
+        <!-- Online World -->
+        <div class="online-section">
+          <h3>🌐 Die Online-Welt der MediaMarktSaturn Gruppe</h3>
+          <div class="online-grid">
+            <div class="online-box">
+              <h4>MediaMarkt Onlineshop (www.mediamarkt.de)</h4>
+              <p>Deutschlands führender Elektronik-Fachhändler mit myMediaMarkt-Treueprogramm, Outlet/Refurbished-Geräten, Let's Go Deals, Live-Online-Beratung & Express-Lieferung.</p>
+            </div>
+            <div class="online-box">
+              <h4>Saturn Onlineshop (www.saturn.de)</h4>
+              <p>Fokus auf Techniktrends, mySaturn-Vorteile, exklusive Hardware-Konfigurationen, Inzahlungnahme-Ankaufservice und Vor-Ort-Services.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Impressum / Legal -->
+        <div class="footer-legal">
+          <p><strong>Impressum & Rechtliche Angaben:</strong></p>
+          <p><strong>Media Markt TV-HiFi-Elektro GmbH Osnabrück-City</strong><br>
+          Anschrift: Kamp 50, 49074 Osnabrück<br>
+          <strong>Vertretungsberechtigter Geschäftsführer:</strong> Matthias Komp (Chief Customer Officer CCO)<br>
+          <strong>Registereintrag:</strong> Eingetragen im Handelsregister Amtsgericht Osnabrück unter <strong>HRB 21409</strong>.<br>
+          Website: <a href="https://www.mediamarkt.de" target="_blank" style="color: #df0000; text-decoration: none;">www.mediamarkt.de</a></p>
         </div>
 
       </div>
