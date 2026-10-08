@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Emre Can Özkan - Talent Profile</title>
+  <title>Emre Can Özkan - MediaMarkt Osnabrück City</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Montserrat', sans-serif; background-color: #dcdde1; color: #2d3436; }
+    body { font-family: 'Montserrat', sans-serif; background-color: #f4f4f4; color: #2d3436; line-height: 1.6; }
 
-    /* Login-Sperre */
+    /* Login Overlay */
     #login-overlay {
       position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
       background: #1e272e; color: #ffffff; display: flex;
@@ -22,90 +22,118 @@
       font-size: 16px; margin-bottom: 15px; text-align: center; width: 250px;
     }
     #login-overlay button {
-      padding: 12px 30px; border-radius: 25px; border: none; background-color: #e50914;
+      padding: 12px 30px; border-radius: 25px; border: none; background-color: #df0000;
       color: #fff; font-weight: 600; cursor: pointer; transition: 0.3s;
     }
-    #login-overlay button:hover { background-color: #b80710; }
+    #login-overlay button:hover { background-color: #b00000; }
 
-    /* Header Navigation */
-    header {
-      position: absolute; top: 0; left: 0; width: 100%;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 30px 60px; z-index: 10; color: #ffffff;
-    }
-    .logo { font-size: 24px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; }
-    .logo span { font-size: 10px; font-weight: 300; letter-spacing: 1px; display: block; }
-    nav a { color: #ffffff; text-decoration: none; margin-left: 30px; font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; opacity: 0.8; }
-    nav a:hover { opacity: 1; }
+    /* Main Container */
+    #main-content { display: none; max-width: 800px; margin: 40px auto; padding: 20px; }
 
-    /* Hero Section (Wie im Beispiel) */
-    .hero {
-      position: relative; width: 100%; height: 100vh;
-      background: #c5c7cb url('DEIN_FOTO_URL_HIER.jpg') center center / cover no-repeat;
-      display: flex; flex-direction: column; justify-content: flex-end; padding: 60px;
+    .card {
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      overflow: hidden;
+      border-top: 6px solid #df0000;
     }
-    .hero-overlay {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 50%);
-    }
-    .hero-content { position: relative; z-index: 2; color: #ffffff; }
-    .hero-content h1 { font-size: 64px; font-weight: 400; letter-spacing: 1px; line-height: 1.1; }
-    .hero-content p { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; margin-top: 10px; opacity: 0.9; }
 
-    /* Steckbrief & Infos */
-    .details { padding: 80px 60px; background: #ffffff; display: flex; gap: 60px; }
-    .info-box { flex: 1; }
-    .info-box h3 { font-size: 14px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; color: #888; }
-    .info-box p { font-size: 16px; margin-bottom: 12px; border-bottom: 1px solid #eee; padding-bottom: 8px; }
+    .header-banner {
+      background: #df0000;
+      color: #ffffff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .header-banner h1 { font-size: 24px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+    .header-banner p { font-size: 14px; opacity: 0.9; }
+
+    .content-body { padding: 30px; }
+
+    .image-container { text-align: center; margin-bottom: 30px; }
+    .image-container img {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .info-section {
+      background: #fafafa;
+      border-left: 4px solid #df0000;
+      padding: 20px;
+      border-radius: 4px;
+      font-size: 15px;
+    }
+
+    .info-section p { margin-bottom: 8px; }
+    .info-section strong { color: #111; }
+    .info-section a { color: #df0000; text-decoration: none; font-weight: 600; }
+    .info-section a:hover { text-decoration: underline; }
+
+    .footer-legal {
+      margin-top: 20px;
+      padding-top: 15px;
+      border-top: 1px solid #e0e0e0;
+      font-size: 13px;
+      color: #666;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Passwort-Schutz -->
+  <!-- Passwort-Sperre -->
   <div id="login-overlay">
-    <h2>PRIVATES PORTFOLIO</h2>
-    <p style="margin-bottom: 20px; font-size: 14px; opacity: 0.7;">Bitte Passwort eingeben:</p>
-    <input type="password" id="pwInput" placeholder="Passwort">
-    <button onclick="checkPassword()">ZUGRIFF</button>
+    <h2>Geschützter Bereich</h2>
+    <input type="password" id="pwInput" placeholder="Passwort eingeben">
+    <button onclick="checkPassword()">Einloggen</button>
   </div>
 
-  <!-- Hauptseite (Nach Passwort-Eingabe) -->
-  <div id="main-content" style="display: none;">
-    <header>
-      <div class="logo">PORTFOLIO<span>TALENT AGENCY</span></div>
-      <nav>
-        <a href="#about">Über mich</a>
-        <a href="#projects">Projekte</a>
-        <a href="#contact">Kontakt</a>
-      </nav>
-    </header>
+  <!-- Hauptinhalt -->
+  <div id="main-content">
+    <div class="card">
+      <div class="header-banner">
+        <h1>MediaMarkt Osnabrück City</h1>
+        <p>Visitenkarte & Team-Profil</p>
+      </div>
 
-    <section class="hero">
-      <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <h1>Emre Can Özkan</h1>
-        <p>Talent / OYUNCULAR / EMRE CAN ÖZKAN</p>
-      </div>
-    </section>
+      <div class="content-body">
+        
+        <!-- Bild -->
+        <div class="image-container">
+          <img src="file_00000000d1d481f4aecb125ee85fa7ca.png" alt="MediaMarkt Osnabrück City Team">
+        </div>
 
-    <section id="about" class="details">
-      <div class="info-box">
-        <h3>Steckbrief</h3>
-        <p><strong>Größe:</strong> 180 cm</p>
-        <p><strong>Augenfarbe:</strong> Braun</p>
-        <p><strong>Haarfarbe:</strong> Schwarz</p>
+        <!-- Infotext / Signatur -->
+        <div class="info-section">
+          <p>Mit freundlichen Grüßen</p>
+          <p style="margin-top: 12px;"><strong>Emre Can Özkan</strong><br>
+          Kundenberater im Verkauf</p>
+          
+          <p style="margin-top: 12px;">
+            <strong>Tel.:</strong> +49 176 32192089<br>
+            <strong>Mail:</strong> <a href="mailto:oezkanemre@mediamarkt.de">oezkanemre@mediamarkt.de</a><br>
+            <strong>Web:</strong> <a href="https://www.mediamarkt.de" target="_blank">www.mediamarkt.de</a>
+          </p>
+
+          <div class="footer-legal">
+            <p><strong>Media Markt TV-HiFi-Elektro GmbH Osnabrück-City</strong><br>
+            Kamp 50<br>
+            49074 Osnabrück</p>
+            
+            <p style="margin-top: 8px;">
+              <strong>Geschäftsführer:</strong> Matthias Komp<br>
+              Eingetragen im Handelsregister/Amtsgericht Osnabrück unter HRB 21409.
+            </p>
+          </div>
+        </div>
+
       </div>
-      <div class="info-box">
-        <h3>Fähigkeiten</h3>
-        <p><strong>Sprachen:</strong> Deutsch, Türkisch, Englisch</p>
-        <p><strong>Kenntnisse:</strong> Schauspiel, Performance</p>
-      </div>
-    </section>
+    </div>
   </div>
 
   <script>
     function checkPassword() {
-      // Stelle hier dein Passwort ein:
       if (document.getElementById('pwInput').value === 'EmrecaN.367314') {
         document.getElementById('login-overlay').style.display = 'none';
         document.getElementById('main-content').style.display = 'block';
