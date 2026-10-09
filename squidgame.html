@@ -88,10 +88,12 @@
     .grid-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 20px; }
     .card {
       background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 6px;
-      padding: 20px; position: relative; cursor: pointer; transition: 0.3s;
+      overflow: hidden; position: relative; cursor: pointer; transition: 0.3s;
     }
     .card:hover { border-color: var(--pink); transform: translateY(-4px); box-shadow: 0 6px 20px rgba(255,0,127,0.2); }
-    .card-number { font-size: 2.2rem; font-weight: 900; color: var(--pink); font-family: sans-serif; margin-bottom: 4px; }
+    .card-img { width: 100%; height: 160px; object-fit: cover; border-bottom: 1px solid var(--panel-border); }
+    .card-content { padding: 20px; }
+    .card-number { font-size: 2rem; font-weight: 900; color: var(--pink); font-family: sans-serif; margin-bottom: 4px; }
     .card-title { font-size: 1.15rem; color: #fff; font-family: sans-serif; margin-bottom: 10px; font-weight: bold; }
     .card-status { display: inline-block; padding: 3px 9px; font-size: 0.7rem; border-radius: 3px; margin-bottom: 12px; font-weight: bold; }
     .status-tot { background: rgba(255, 50, 50, 0.2); color: #ff5555; border: 1px solid #ff5555; }
@@ -100,6 +102,34 @@
     
     .card-body p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 6px; line-height: 1.4; }
     .card-body strong { color: var(--text-main); }
+
+    /* MEDIA & VIDEO STYLES */
+    .media-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px; }
+    .video-card { background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 6px; padding: 20px; }
+    .video-container { position: relative; width: 100%; padding-bottom: 56.25%; height: 0; margin-top: 12px; border-radius: 4px; overflow: hidden; border: 1px solid var(--panel-border); }
+    .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+
+    /* MUSIC PLAYER STYLES */
+    .player-container {
+      background: var(--panel-bg); border: 1px solid var(--pink); border-radius: 6px;
+      padding: 25px; margin-bottom: 25px; box-shadow: 0 0 15px var(--pink-glow);
+      display: flex; flex-direction: column; gap: 15px;
+    }
+    .now-playing { display: flex; align-items: center; justify-content: space-between; }
+    .now-playing-title { font-family: sans-serif; font-size: 1.2rem; font-weight: bold; color: #fff; }
+    .now-playing-artist { font-size: 0.85rem; color: var(--pink); margin-top: 4px; }
+    audio { width: 100%; filter: invert(100%) hue-rotate(270deg); outline: none; }
+    .track-list { display: flex; flex-direction: column; gap: 10px; }
+    .track-item {
+      background: #090a0d; border: 1px solid var(--panel-border); padding: 14px 20px;
+      border-radius: 4px; display: flex; justify-content: space-between; align-items: center;
+      cursor: pointer; transition: 0.3s;
+    }
+    .track-item:hover, .track-item.active { border-color: var(--pink); background: rgba(255,0,127,0.1); }
+    .track-info { display: flex; flex-direction: column; gap: 4px; }
+    .track-title { color: #fff; font-family: sans-serif; font-weight: bold; font-size: 0.95rem; }
+    .track-sub { color: var(--text-muted); font-size: 0.8rem; }
+    .play-icon { color: var(--pink); font-size: 1.2rem; font-weight: bold; }
 
     /* MODAL POPUP */
     #modal-overlay {
@@ -131,28 +161,6 @@
       border-radius: 4px; outline: none;
     }
     .search-input:focus { border-color: var(--pink); box-shadow: 0 0 10px var(--pink-glow); }
-
-    /* MUSIC PLAYER STYLES */
-    .player-container {
-      background: var(--panel-bg); border: 1px solid var(--pink); border-radius: 6px;
-      padding: 25px; margin-bottom: 25px; box-shadow: 0 0 15px var(--pink-glow);
-      display: flex; flex-direction: column; gap: 15px;
-    }
-    .now-playing { display: flex; align-items: center; justify-content: space-between; }
-    .now-playing-title { font-family: sans-serif; font-size: 1.2rem; font-weight: bold; color: #fff; }
-    .now-playing-artist { font-size: 0.85rem; color: var(--pink); margin-top: 4px; }
-    audio { width: 100%; filter: invert(100%) hue-rotate(270deg); outline: none; }
-    .track-list { display: flex; flex-direction: column; gap: 10px; }
-    .track-item {
-      background: #090a0d; border: 1px solid var(--panel-border); padding: 14px 20px;
-      border-radius: 4px; display: flex; justify-content: space-between; align-items: center;
-      cursor: pointer; transition: 0.3s;
-    }
-    .track-item:hover, .track-item.active { border-color: var(--pink); background: rgba(255,0,127,0.1); }
-    .track-info { display: flex; flex-direction: column; gap: 4px; }
-    .track-title { color: #fff; font-family: sans-serif; font-weight: bold; font-size: 0.95rem; }
-    .track-sub { color: var(--text-muted); font-size: 0.8rem; }
-    .play-icon { color: var(--pink); font-size: 1.2rem; font-weight: bold; }
 
     footer { text-align: center; margin-top: 50px; padding: 25px; color: var(--text-muted); font-size: 0.8rem; border-top: 1px solid var(--panel-border); }
   </style>
@@ -199,6 +207,7 @@
       <button class="tab-btn" onclick="switchTab('personal', event)">🔺 Personal & Hierarchie</button>
       <button class="tab-btn" onclick="switchTab('spiele', event)">🎮 Spiele & Regeln</button>
       <button class="tab-btn" onclick="switchTab('brueder', event)">🕵️ Akte In-ho & Jun-ho</button>
+      <button class="tab-btn" onclick="switchTab('medien', event)">🎬 Videos & Bilder</button>
       <button class="tab-btn" onclick="switchTab('musik', event)">🎵 Musikarchiv</button>
     </div>
 
@@ -336,36 +345,58 @@
     <div id="brueder" class="section">
       <div class="grid-cards" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
         <div class="card" style="cursor: default;">
-          <div class="card-number">HWANG IN-HO</div>
-          <div class="card-title">Der Front Man (Leiter der Spiele)</div>
-          <div class="card-body">
-            <p><strong>Geburtsdatum:</strong> 02.02.1976</p>
-            <p><strong>Hintergrund:</strong> Polizeioffizier aus Seoul.</p>
-            <p><strong>Vergangenheit:</strong> Gewinner des 28. Squid Game im Jahr 2015 (als Spieler 132).</p>
-            <p><strong>Rolle & Wendepunkt:</strong> Übernahm nach seinem Sieg die operative Leitung der Spiele als Front Man. Spendete seinem Halbbruder Jun-ho einst eine Niere.</p>
-            <p><strong>Status:</strong> Überlebt Staffel 3 / Aktiv im System.</p>
+          <div class="card-content">
+            <div class="card-number">HWANG IN-HO</div>
+            <div class="card-title">Der Front Man (Leiter der Spiele)</div>
+            <div class="card-body">
+              <p><strong>Geburtsdatum:</strong> 02.02.1976</p>
+              <p><strong>Hintergrund:</strong> Polizeioffizier aus Seoul.</p>
+              <p><strong>Vergangenheit:</strong> Gewinner des 28. Squid Game im Jahr 2015 (als Spieler 132).</p>
+              <p><strong>Status:</strong> Überlebt Staffel 3 / Aktiv im System.</p>
+            </div>
           </div>
         </div>
 
         <div class="card" style="cursor: default;">
-          <div class="card-number">HWANG JUN-HO</div>
-          <div class="card-title">Der Ermittler (Polizeibeamter)</div>
-          <div class="card-body">
-            <p><strong>Geburtsdatum:</strong> 13.09.1992</p>
-            <p><strong>Hintergrund:</strong> Polizeibeamter aus Seoul.</p>
-            <p><strong>Infiltration:</strong> Schleuste sich in Staffel 1 als Wache (Kreis/Dreieck) auf die Insel ein, um seinen vermissten Bruder zu suchen.</p>
-            <p><strong>Entdeckung:</strong> Wurde von In-ho an einer Klippe angeschossen, überlebte den Sturz ins Meer und setzte seine Untersuchungen fort.</p>
-            <p><strong>Status:</strong> Überlebend / Hüter der Beweisakten.</p>
+          <div class="card-content">
+            <div class="card-number">HWANG JUN-HO</div>
+            <div class="card-title">Der Ermittler (Polizeibeamter)</div>
+            <div class="card-body">
+              <p><strong>Geburtsdatum:</strong> 13.09.1992</p>
+              <p><strong>Hintergrund:</strong> Polizeioffizier aus Seoul.</p>
+              <p><strong>Infiltration:</strong> Schleuste sich in Staffel 1 als Wache ein.</p>
+              <p><strong>Status:</strong> Überlebend / Hüter der Beweisakten.</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- TAB 5: MUSIKARCHIV -->
+    <!-- TAB 5: VIDEOS & BILDER -->
+    <div id="medien" class="section">
+      <h3 style="font-family: sans-serif; color: #fff; margin-bottom: 15px;">MEDIEN-ARCHIV // TRAILER & VIDEO-FEEDS</h3>
+      <div class="media-grid">
+        <div class="video-card">
+          <h4 style="font-family: sans-serif; color: #fff; font-size: 1rem;">SQUID GAME — Offizieller Trailer (Staffel 1)</h4>
+          <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 4px;">Netzwerk-Feed // Eingebettet von YouTube</p>
+          <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/fNKyxkIuKSI" title="Squid Game Trailer" allowfullscreen></iframe>
+          </div>
+        </div>
+
+        <div class="video-card">
+          <h4 style="font-family: sans-serif; color: #fff; font-size: 1rem;">SQUID GAME: UNGESCHÄRFT & EXKLUSIV</h4>
+          <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 4px;">Teaser & Highlights</p>
+          <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/2gyTqUPZTQ8" title="Squid Game Teaser" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 6: MUSIKARCHIV -->
     <div id="musik" class="section">
       <h3 style="font-family: sans-serif; color: #fff; margin-bottom: 15px;">AUDIO-ARCHIV // SOUNDTRACK & THEMES</h3>
-      
-      <!-- MAIN PLAYER -->
       <div class="player-container">
         <div class="now-playing">
           <div>
@@ -377,7 +408,6 @@
         <audio id="audioPlayer" controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
       </div>
 
-      <!-- TRACK LIST -->
       <div class="track-list" id="trackList">
         <!-- Track Items generated by JS -->
       </div>
@@ -398,15 +428,15 @@
 
   <script>
     const candidates = [
-      { num: '001', name: 'Oh Il-nam', role: 'Gastgeber / Erfinder der Spiele', status: 'tot', detail: 'Entpuppte sich als milliardenschwerer Kopf hinter den Spielen. Nahm als alter Mann teil, um vor seinem Krebstod noch einmal die Freude von Kinderspielen zu spüren.' },
-      { num: '456', name: 'Seong Gi-hun', role: 'Hauptteilnehmer / Sieger S1', status: 'gewinner', detail: 'Geringverdiener mit hoher Spielschuld. Gewann das 33. Squid Game (45,6 Mrd. Won). Kehrt in den Folge-Staffeln zurück, um die Organisation zu stürzen.' },
-      { num: '218', name: 'Cho Sang-woo', role: 'SNU-Absolvent / Investmentbanker', status: 'tot', detail: 'Tätigte verbotene Spekulationen und schuldete Milliarden. Kämpfte skrupellos, opferte sich jedoch im Finale gegen Gi-hun.' },
-      { num: '067', name: 'Kang Sae-byeok', role: 'Flüchtling aus Nordkorea', status: 'tot', detail: 'Wollte das Preisgeld nutzen, um ihre Mutter aus Nordkorea zu holen und ihrem Bruder ein Zuhause zu bauen. Starb kurz vor dem Finale durch Sang-woo.' },
-      { num: '199', name: 'Ali Abdul', role: 'Gastarbeiter aus Pakistan', status: 'tot', detail: 'Sehr hilfsbereit, ehrlich und loyal. Wurde im Murmelspiel von Cho Sang-woo hintergangen und anschließend von Soldaten eliminiert.' },
-      { num: '101', name: 'Jang Deok-su', role: 'Gangster / Krimineller', status: 'tot', detail: 'Bildete die stärkste Kraft im Schlafsaal. Wurde auf der Glasbrücke von Han Mi-nyeo packend mit in den Abgrund gerissen.' },
-      { num: '212', name: 'Han Mi-nyeo', role: 'Unberechenbare Kandidatin', status: 'tot', detail: 'Sehr lautstark und clever. Rächte sich an Deok-su für seinen Verrat, indem sie ihn auf der Glasbrücke umschlang und mit stürzte.' },
-      { num: '240', name: 'Ji-yeong', role: 'Junge Frau ohne Zukunftsplan', status: 'tot', detail: 'Saß wegen des Mordes an ihrem missbräuchlichen Vater im Gefängnis. Opferte sich im Murmelspiel freiwillig für Sae-byeok.' },
-      { num: '111', name: 'Byeong-gi', role: 'Arzt', status: 'tot', detail: 'Entnahm heimlich Organe verstorbener Spieler für abtrünnige Wachen, um im Gegenzug Tipps für die nächsten Spiele zu erhalten.' }
+      { num: '001', name: 'Oh Il-nam', role: 'Gastgeber / Erfinder der Spiele', status: 'tot', img: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=60', detail: 'Entpuppte sich als milliardenschwerer Kopf hinter den Spielen. Nahm als alter Mann teil, um vor seinem Krebstod noch einmal die Freude von Kinderspielen zu spüren.' },
+      { num: '456', name: 'Seong Gi-hun', role: 'Hauptteilnehmer / Sieger S1', status: 'gewinner', img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&auto=format&fit=crop&q=60', detail: 'Geringverdiener mit hoher Spielschuld. Gewann das 33. Squid Game (45,6 Mrd. Won). Kehrt in den Folge-Staffeln zurück, um die Organisation zu stürzen.' },
+      { num: '218', name: 'Cho Sang-woo', role: 'SNU-Absolvent / Investmentbanker', status: 'tot', img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&auto=format&fit=crop&q=60', detail: 'Tätigte verbotene Spekulationen und schuldete Milliarden. Kämpfte skrupellos, opferte sich jedoch im Finale gegen Gi-hun.' },
+      { num: '067', name: 'Kang Sae-byeok', role: 'Flüchtling aus Nordkorea', status: 'tot', img: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&auto=format&fit=crop&q=60', detail: 'Wollte das Preisgeld nutzen, um ihre Mutter aus Nordkorea zu holen und ihrem Bruder ein Zuhause zu bauen. Starb kurz vor dem Finale durch Sang-woo.' },
+      { num: '199', name: 'Ali Abdul', role: 'Gastarbeiter aus Pakistan', status: 'tot', img: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=500&auto=format&fit=crop&q=60', detail: 'Sehr hilfsbereit, ehrlich und loyal. Wurde im Murmelspiel von Cho Sang-woo hintergangen und anschließend von Soldaten eliminiert.' },
+      { num: '101', name: 'Jang Deok-su', role: 'Gangster / Krimineller', status: 'tot', img: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=500&auto=format&fit=crop&q=60', detail: 'Bildete die stärkste Kraft im Schlafsaal. Wurde auf der Glasbrücke von Han Mi-nyeo packend mit in den Abgrund gerissen.' },
+      { num: '212', name: 'Han Mi-nyeo', role: 'Unberechenbare Kandidatin', status: 'tot', img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=500&auto=format&fit=crop&q=60', detail: 'Sehr lautstark und clever. Rächte sich an Deok-su für seinen Verrat, indem sie ihn auf der Glasbrücke umschlang und mit stürzte.' },
+      { num: '240', name: 'Ji-yeong', role: 'Junge Frau ohne Zukunftsplan', status: 'tot', img: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=500&auto=format&fit=crop&q=60', detail: 'Saß wegen des Mordes an ihrem missbräuchlichen Vater im Gefängnis. Opferte sich im Murmelspiel freiwillig für Sae-byeok.' },
+      { num: '111', name: 'Byeong-gi', role: 'Arzt', status: 'tot', img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=500&auto=format&fit=crop&q=60', detail: 'Entnahm heimlich Organe verstorbener Spieler für abtrünnige Wachen, um im Gegenzug Tipps für die nächsten Spiele zu erhalten.' }
     ];
 
     const tracks = [
@@ -444,12 +474,15 @@
         let statusText = p.status === 'gewinner' ? 'SIEGER' : (p.status === 'tot' ? 'ELIMINIERT' : 'AKTIV');
         grid.innerHTML += `
           <div class="card" onclick="openModal(${index})">
-            <div class="card-number">#${p.num}</div>
-            <div class="card-title">${p.name}</div>
-            <span class="card-status ${statusClass}">${statusText}</span>
-            <div class="card-body">
-              <p><strong>Rolle:</strong> ${p.role}</p>
-              <p style="margin-top:8px; font-size:0.8rem; color:var(--pink);">➜ Klicken für Geheimakte</p>
+            <img src="${p.img}" class="card-img" alt="${p.name}">
+            <div class="card-content">
+              <div class="card-number">#${p.num}</div>
+              <div class="card-title">${p.name}</div>
+              <span class="card-status ${statusClass}">${statusText}</span>
+              <div class="card-body">
+                <p><strong>Rolle:</strong> ${p.role}</p>
+                <p style="margin-top:8px; font-size:0.8rem; color:var(--pink);">➜ Klicken für Geheimakte</p>
+              </div>
             </div>
           </div>
         `;
@@ -493,7 +526,8 @@
       let statusText = p.status === 'gewinner' ? 'SIEGER' : (p.status === 'tot' ? 'ELIMINIERT' : 'AKTIV');
 
       modalBody.innerHTML = `
-        <h2 style="font-size:2rem; color:var(--pink); font-family:sans-serif; margin-bottom:5px;">SPIELER #${p.num}</h2>
+        <img src="${p.img}" style="width:100%; height:200px; object-fit:cover; border-radius:4px; margin-bottom:15px; border:1px solid var(--panel-border);" alt="${p.name}">
+        <h2 style="font-size:2.5rem; color:var(--pink); font-family:sans-serif; margin-bottom:5px;">SPIELER #${p.num}</h2>
         <h3 style="color:#fff; font-size:1.3rem; margin-bottom:15px; font-family:sans-serif;">${p.name}</h3>
         <span class="card-status ${statusClass}" style="margin-bottom:20px;">${statusText}</span>
         <div style="margin-top:15px; line-height:1.6; font-size:0.95rem;">
