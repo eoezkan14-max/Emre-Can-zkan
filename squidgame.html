@@ -143,7 +143,7 @@
     <h1>STRENG GEHEIM // SYSTEM ZUGRIFF</h1>
     <p>SQUID GAME SYSTEM ARCHIV — NUR AUTORISIERTES PERSONAL (FRONT MAN / VIPs)</p>
     <div class="pw-box">
-      <input type="password" id="pwInput" placeholder="Sicherheitscode" maxlength="20">
+      <input type="password" id="pwInput" placeholder="Sicherheitscode" maxlength="20" onkeyup="if(event.key==='Enter') authenticate()">
       <button class="login-btn" onclick="authenticate()">Zugriff</button>
     </div>
     <div class="error-msg" id="errorMsg"></div>
@@ -156,4 +156,295 @@
         <span style="font-size: 2rem; color: var(--pink);">○ △ □</span>
         <div>
           <h2>SQUID GAME — GEHEIMAKTE</h2>
-          <span style="font-size:
+          <span style="font-size: 0.8rem; color: var(--text-muted);">SYSTEM ARCHIV & TEILNEHMER-DATENBANK (STAFFELN 1–3)</span>
+        </div>
+      </div>
+      <div class="status-badge">SYSTEM STATUS: ONLINE</div>
+    </header>
+
+    <!-- POT BAR -->
+    <div class="pot-bar">
+      <div>
+        <span style="color: var(--text-muted); font-size: 0.85rem;">AKTUELLES PREISGELD (MAXIMALTOPF):</span><br>
+        <strong style="color: #fff; font-size: 0.95rem;">456 KANDIDATEN × 100.000.000 KRW</strong>
+      </div>
+      <div class="pot-amount">45.600.000.000 KRW</div>
+    </div>
+
+    <!-- NAVIGATION TABS -->
+    <div class="nav-tabs">
+      <button class="tab-btn active" onclick="switchTab('teilnehmer', event)">👥 Kandidaten-Dossiers</button>
+      <button class="tab-btn" onclick="switchTab('personal', event)">🔺 Personal & Hierarchie</button>
+      <button class="tab-btn" onclick="switchTab('spiele', event)">🎮 Spiele & Regeln</button>
+      <button class="tab-btn" onclick="switchTab('brueder', event)">🕵️ Akte In-ho & Jun-ho</button>
+    </div>
+
+    <!-- TAB 1: TEILNEHMER -->
+    <div id="teilnehmer" class="section active">
+      <div class="search-box">
+        <input type="text" id="playerSearch" class="search-input" placeholder="Kandidaten nach Nummer (#456, #001), Name oder Status filtern..." onkeyup="filterPlayers()">
+      </div>
+      <div class="grid-cards" id="playersGrid">
+        <!-- Candidate Cards inserted by JS -->
+      </div>
+    </div>
+
+    <!-- TAB 2: PERSONAL -->
+    <div id="personal" class="section">
+      <h3 style="font-family: sans-serif; color: #fff; margin-bottom: 15px;">PERSONAL-HIERARCHIE & BEFEHLSSTRUKTUR</h3>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Symbol / Rang</th>
+            <th>Rolle / Bezeichnung</th>
+            <th>Sicherheitsstufe</th>
+            <th>Ausrüstung</th>
+            <th>Aufgaben & Vorschriften</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-size: 1.5rem; color: var(--pink);">○ Kreis</td>
+            <td>Arbeiter / Support</td>
+            <td>Stufe 1 (Basis)</td>
+            <td>Keine Bewaffnung, Entsorgungskleidung</td>
+            <td>Reinigung, Vorbereitung der Spiele, Leichenbeseitigung & Essensausgabe. Sprechen nur nach Aufforderung durch Vorgesetzte.</td>
+          </tr>
+          <tr>
+            <td style="font-size: 1.5rem; color: var(--pink);">△ Dreieck</td>
+            <td>Soldaten / Exekution</td>
+            <td>Stufe 2 (Mittel)</td>
+            <td>Heckler & Koch MP5K, Revolver</td>
+            <td>Überwachung der Kandidaten, Durchsetzung von Disziplin und unmittelbare Exekution bei Regelverstoß oder Eliminierung.</td>
+          </tr>
+          <tr>
+            <td style="font-size: 1.5rem; color: var(--pink);">□ Quadrat</td>
+            <td>Supervisor / Manager</td>
+            <td>Stufe 3 (Hoch)</td>
+            <td>Seitenwaffe, Funkgerät, Vollmacht</td>
+            <td>Leitung der Kontrollräume, Befehlsgabe an Soldaten & Arbeiter, direkte Schnittstelle zum Front Man.</td>
+          </tr>
+          <tr>
+            <td style="font-size: 1.5rem; color: #fff;">🕶️ Front Man</td>
+            <td>Spielleiter (Hwang In-ho)</td>
+            <td>Stufe 4 (Kommandant)</td>
+            <td>Schwarze Maske, volle Kontrolle</td>
+            <td>Gesamte operative Leitung der Anlage, Empfang der VIPs, Berichterstattung an den Gastgeber (Oh Il-nam).</td>
+          </tr>
+          <tr>
+            <td style="font-size: 1.5rem; color: #ffd700;">🎭 VIPs</td>
+            <td>Internationale Investoren</td>
+            <td>Beobachter / Sponsoren</td>
+            <td>Goldene Tiermasken</td>
+            <td>Finanzierung der Spiele, Platzieren hoher Wetten auf Kandidaten und Verfolgen der Finalrunden vor Ort.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- TAB 3: SPIELE -->
+    <div id="spiele" class="section">
+      <h3 style="font-family: sans-serif; color: #fff; margin-bottom: 15px;">DURCHGEFÜHRTE SPIELRUNDEN (STAFFELN 1–3)</h3>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Staffel</th>
+            <th>Runde</th>
+            <th>Spielname</th>
+            <th>Ablauf & Regeln</th>
+            <th>Tödliche Konsequenz / Schicksal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Staffel 1</td>
+            <td>Spiel 1</td>
+            <td>Rotlicht, Grünlicht</td>
+            <td>Bewegung nur bei "Grünlicht", bei "Rotlicht" herrscht absolute Regungslosigkeit. Sensorpuppe Young-hee scannt das Feld.</td>
+            <td>255 von 456 Kandidaten bei der ersten Welle erschossen.</td>
+          </tr>
+          <tr>
+            <td>Staffel 1</td>
+            <td>Spiel 2</td>
+            <td>Dalgona / Ppopgi</td>
+            <td>Gestanzte Form (Kreis, Dreieck, Stern, Schirm) sauber mit einer Nadel aus der Zuckerscheibe lösen.</td>
+            <td>Zerbrechen der Form führt zur Erschießung durch Dreieck-Soldaten.</td>
+          </tr>
+          <tr>
+            <td>Staffel 1</td>
+            <td>Spiel 3</td>
+            <td>Tauziehen</td>
+            <td>Zwei 10er-Teams ziehen an einem Seil auf getrennten Türmen.</td>
+            <td>Das verlierende Team wird in der Mitte heruntergezogen und fällt in den Tod.</td>
+          </tr>
+          <tr>
+            <td>Staffel 1</td>
+            <td>Spiel 4</td>
+            <td>Murmelspiel</td>
+            <td>Zweierduelle mit je 10 Murmeln. Innerhalb von 30 Minuten müssen alle Murmeln des Partners gewonnen werden.</td>
+            <td>Wer am Ende keine Murmeln besitzt, wird vor Ort exekutiert.</td>
+          </tr>
+          <tr>
+            <td>Staffel 1</td>
+            <td>Spiel 5</td>
+            <td>Glasbrücke</td>
+            <td>Überquerung einer Brücke aus gehärtetem und normalem Glas in vorgegebener Reihenfolge.</td>
+            <td>Fehltritt auf einfaches Glas führt zum Sturz aus 15 Metern Höhe.</td>
+          </tr>
+          <tr>
+            <td>Staffel 1</td>
+            <td>Spiel 6</td>
+            <td>Squid Game (Finale)</td>
+            <td>Klassisches Tintenfischspiel auf dem Feld. Angreifer (Gi-hun) gegen Verteidiger (Sang-woo).</td>
+            <td>Kampf bis zur Kampfunfähigkeit. Gi-hun gewinnt 45,6 Milliarden Won.</td>
+          </tr>
+          <tr>
+            <td>Staffel 2/3</td>
+            <td>Diverse</td>
+            <td>Pentathlon, Mingle, Hide & Seek, Sky Squid Game</td>
+            <td>Fortgeschrittene, psychologisch hochkomplexe Team- und Selektionsspiele.</td>
+            <td>Reduzierung der verbleibenden Teilnehmer bis zum finalen Sieger.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- TAB 4: ERMITTLUNG -->
+    <div id="brueder" class="section">
+      <div class="grid-cards" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
+        <div class="card" style="cursor: default;">
+          <div class="card-number">HWANG IN-HO</div>
+          <div class="card-title">Der Front Man (Leiter der Spiele)</div>
+          <div class="card-body">
+            <p><strong>Geburtsdatum:</strong> 02.02.1976</p>
+            <p><strong>Hintergrund:</strong> Polizeioffizier aus Seoul.</p>
+            <p><strong>Vergangenheit:</strong> Gewinner des 28. Squid Game im Jahr 2015 (als Spieler 132).</p>
+            <p><strong>Rolle & Wendepunkt:</strong> Übernahm nach seinem Sieg die operative Leitung der Spiele als Front Man. Spendete seinem Halbbruder Jun-ho einst eine Niere.</p>
+            <p><strong>Status:</strong> Überlebt Staffel 3 / Aktiv im System.</p>
+          </div>
+        </div>
+
+        <div class="card" style="cursor: default;">
+          <div class="card-number">HWANG JUN-HO</div>
+          <div class="card-title">Der Ermittler (Polizeibeamter)</div>
+          <div class="card-body">
+            <p><strong>Geburtsdatum:</strong> 13.09.1992</p>
+            <p><strong>Hintergrund:</strong> Polizeibeamter aus Seoul.</p>
+            <p><strong>Infiltration:</strong> Schleuste sich in Staffel 1 als Wache (Kreis/Dreieck) auf die Insel ein, um seinen vermissten Bruder zu suchen.</p>
+            <p><strong>Entdeckung:</strong> Wurde von In-ho an einer Klippe angeschossen, überlebte den Sturz ins Meer und setzte seine Untersuchungen fort.</p>
+            <p><strong>Status:</strong> Überlebend / Hüter der Beweisakten.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DETAIL MODAL -->
+    <div id="modal-overlay" onclick="closeModal(event)">
+      <div class="modal-content" onclick="event.stopPropagation()">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <div id="modal-body"></div>
+      </div>
+    </div>
+
+    <footer>
+      STRENG GEHEIM // CONFIDENTIAL & PROPRIETARY — SQUID GAME SYSTEM ARCHIVE // 45.600.000.000 KRW
+    </footer>
+  </div>
+
+  <script>
+    const candidates = [
+      { num: '001', name: 'Oh Il-nam', role: 'Gastgeber / Erfinder der Spiele', status: 'tot', detail: 'Entpuppte sich als milliardenschwerer Kopf hinter den Spielen. Nahm als alter Mann teil, um vor seinem Krebstod noch einmal die Freude von Kinderspielen zu spüren.' },
+      { num: '456', name: 'Seong Gi-hun', role: 'Hauptteilnehmer / Sieger S1', status: 'gewinner', detail: 'Geringverdiener mit hoher Spielschuld. Gewann das 33. Squid Game (45,6 Mrd. Won). Kehrt in den Folge-Staffeln zurück, um die Organisation zu stürzen.' },
+      { num: '218', name: 'Cho Sang-woo', role: 'SNU-Absolvent / Investmentbanker', status: 'tot', detail: 'Tätigte verbotene Spekulationen und schuldete Milliarden. Kämpfte skrupellos, opferte sich jedoch im Finale gegen Gi-hun.' },
+      { num: '067', name: 'Kang Sae-byeok', role: 'Flüchtling aus Nordkorea', status: 'tot', detail: 'Wollte das Preisgeld nutzen, um ihre Mutter aus Nordkorea zu holen und ihrem Bruder ein Zuhause zu bauen. Starb kurz vor dem Finale durch Sang-woo.' },
+      { num: '199', name: 'Ali Abdul', role: 'Gastarbeiter aus Pakistan', status: 'tot', detail: 'Sehr hilfsbereit, ehrlich und loyal. Wurde im Murmelspiel von Cho Sang-woo hintergangen und anschließend von Soldaten eliminiert.' },
+      { num: '101', name: 'Jang Deok-su', role: 'Gangster / Krimineller', status: 'tot', detail: 'Bildete die stärkste Kraft im Schlafsaal. Wurde auf der Glasbrücke von Han Mi-nyeo packend mit in den Abgrund gerissen.' },
+      { num: '212', name: 'Han Mi-nyeo', role: 'Unberechenbare Kandidatin', status: 'tot', detail: 'Sehr lautstark und clever. Rächte sich an Deok-su für seinen Verrat, indem sie ihn auf der Glasbrücke umschlang und mit stürzte.' },
+      { num: '240', name: 'Ji-yeong', role: 'Junge Frau ohne Zukunftsplan', status: 'tot', detail: 'Saß wegen des Mordes an ihrem missbräuchlichen Vater im Gefängnis. Opferte sich im Murmelspiel freiwillig für Sae-byeok.' },
+      { num: '111', name: 'Byeong-gi', role: 'Arzt', status: 'tot', detail: 'Entnahm heimlich Organe verstorbener Spieler für abtrünnige Wachen, um im Gegenzug Tipps für die nächsten Spiele zu erhalten.' }
+    ];
+
+    let currentFilteredCandidates = [...candidates];
+
+    function authenticate() {
+      const input = document.getElementById('pwInput').value;
+      if (input === '456' || input === 'EmrecaN.367314') {
+        document.getElementById('login-overlay').style.display = 'none';
+        document.getElementById('main-app').style.display = 'block';
+        renderPlayers(candidates);
+      } else {
+        document.getElementById('errorMsg').innerText = 'ZUGRIFF VERWEIGERT // FALSCHER CODE';
+      }
+    }
+
+    function renderPlayers(list) {
+      currentFilteredCandidates = list;
+      const grid = document.getElementById('playersGrid');
+      grid.innerHTML = '';
+      if (list.length === 0) {
+        grid.innerHTML = '<p style="color:var(--text-muted); grid-column:1/-1;">Keine passenden Kandidaten-Akten gefunden.</p>';
+        return;
+      }
+      list.forEach((p, index) => {
+        let statusClass = p.status === 'gewinner' ? 'status-gewinner' : (p.status === 'tot' ? 'status-tot' : 'status-aktiv');
+        let statusText = p.status === 'gewinner' ? 'SIEGER' : (p.status === 'tot' ? 'ELIMINIERT' : 'AKTIV');
+        grid.innerHTML += `
+          <div class="card" onclick="openModal(${index})">
+            <div class="card-number">#${p.num}</div>
+            <div class="card-title">${p.name}</div>
+            <span class="card-status ${statusClass}">${statusText}</span>
+            <div class="card-body">
+              <p><strong>Rolle:</strong> ${p.role}</p>
+              <p style="margin-top:8px; font-size:0.8rem; color:var(--pink);">➜ Klicken für Geheimakte</p>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function openModal(index) {
+      const p = currentFilteredCandidates[index];
+      if (!p) return;
+      const modalBody = document.getElementById('modal-body');
+      let statusClass = p.status === 'gewinner' ? 'status-gewinner' : (p.status === 'tot' ? 'status-tot' : 'status-aktiv');
+      let statusText = p.status === 'gewinner' ? 'SIEGER' : (p.status === 'tot' ? 'ELIMINIERT' : 'AKTIV');
+
+      modalBody.innerHTML = `
+        <h2 style="font-size:2rem; color:var(--pink); font-family:sans-serif; margin-bottom:5px;">SPIELER #${p.num}</h2>
+        <h3 style="color:#fff; font-size:1.3rem; margin-bottom:15px; font-family:sans-serif;">${p.name}</h3>
+        <span class="card-status ${statusClass}" style="margin-bottom:20px;">${statusText}</span>
+        <div style="margin-top:15px; line-height:1.6; font-size:0.95rem;">
+          <p><strong>Funktion/Rolle:</strong> ${p.role}</p>
+          <p style="margin-top:12px; color:#ddd;"><strong>System-Akte & Dossier:</strong><br>${p.detail}</p>
+        </div>
+      `;
+      document.getElementById('modal-overlay').style.display = 'flex';
+    }
+
+    function closeModal(evt) {
+      if (!evt || evt.target.id === 'modal-overlay' || evt.target.classList.contains('modal-close')) {
+        document.getElementById('modal-overlay').style.display = 'none';
+      }
+    }
+
+    function filterPlayers() {
+      const query = document.getElementById('playerSearch').value.toLowerCase();
+      const filtered = candidates.filter(p => 
+        p.num.toLowerCase().includes(query) || 
+        p.name.toLowerCase().includes(query) || 
+        p.role.toLowerCase().includes(query)
+      );
+      renderPlayers(filtered);
+    }
+
+    function switchTab(tabId, evt) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      if (evt && evt.target) {
+        evt.target.classList.add('active');
+      }
+    }
+  </script>
+</body>
+</html>
